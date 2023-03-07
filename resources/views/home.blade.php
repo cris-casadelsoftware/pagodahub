@@ -310,7 +310,7 @@
                                                             {{-- <h5 class="card-header">Compras</h5> --}}
                                                             <div class="card-body">
                                                                 <h5 class="card-title">Carga de facturas</h5>
-                                                                <p class="card-text">---------------</p>
+                                                                <p class="card-text">Listas de compra para proveedores (Facturas)</p>
                                                             </div>
                                                         </button>
                                                     </center>
@@ -324,7 +324,7 @@
                                         <div class="col">
                                             <div class="card h-100 border border-5 border-dark-subtle">
                                                 <form name="loanslist" id="loanslist" method="get"
-                                                    action="{{ route('home') }}">
+                                                    action="{{ route('creditinvoice') }}">
                                                     @csrf
                                                     <center>
                                                         <button type="submit" class="btn btn-outline">
@@ -332,7 +332,29 @@
                                                             <div class="card-body">
                                                                 <h5 class="card-title">Listado de creditos por proveedor
                                                                 </h5>
-                                                                <p class="card-text">---------------</p>
+                                                                <p class="card-text">Resumen defacturas proveedores</p>
+                                                            </div>
+                                                        </button>
+                                                    </center>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @foreach ($user->PAGODAHUB_closecash as $acceso)
+                                    @if ($acceso->Name == 'market')
+                                        <div class="col">
+                                            <div class="card h-100 border border-5 border-dark-subtle">
+                                                <form name="loanslist" id="loanslist" method="get"
+                                                    action="{{ route('budget') }}">
+                                                    @csrf
+                                                    <center>
+                                                        <button type="submit" class="btn btn-outline">
+                                                            {{-- <h5 class="card-header">Compras</h5> --}}
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">Presupuestos mercado-caja
+                                                                </h5>
+                                                                <p class="card-text">----------</p>
                                                             </div>
                                                         </button>
                                                     </center>
@@ -368,7 +390,7 @@
                                         <div class="col">
                                             <div class="card h-100 border border-5 border-dark-subtle">
                                                 <form name="loanslist" id="loanslist" method="get"
-                                                    action="{{ route('home') }}">
+                                                    action="{{ route('bankrequest') }}">
                                                     @csrf
                                                     <center>
                                                         <button type="submit" class="btn btn-outline">
@@ -389,7 +411,7 @@
                                         <div class="col">
                                             <div class="card h-100 border border-5 border-dark-subtle">
                                                 <form name="loanslist" id="loanslist" method="get"
-                                                    action="{{ route('home') }}">
+                                                    action="{{ route('bankdeposit') }}">
                                                     @csrf
                                                     <center>
                                                         <button type="submit" class="btn btn-outline">
