@@ -16,6 +16,16 @@ class BankController extends Controller
         //
     }
 
+    public function indexrequest()
+    {
+        return view('modules/bank/bankrequest');
+    }
+
+    public function indexdeposit()
+    {
+        return view('modules/bank/bankdeposit');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
