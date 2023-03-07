@@ -20,7 +20,7 @@ class MarketController extends Controller
         $opciones = units::all();
         $opciones2 = products::all();
         //dump($opciones, $opciones2);
-        return view('market', compact('opciones', 'opciones2'));
+        return view('modules/market/market', compact('opciones', 'opciones2'));
     }
     /**
      * Store a newly created resource in storage.
@@ -31,7 +31,7 @@ class MarketController extends Controller
     public function store(Request $request)
     {
         $productos = $request->input('product');
-        //dump($request);
+        //dd($request);
         foreach ($productos as $nombre) {
             if ($nombre != "") {
                 $producto = products::where('name', $nombre)->first();
@@ -67,6 +67,7 @@ class MarketController extends Controller
         $shop->shoppingday = $request->input('date-day');
         $shop->buyer = $request->input('comprador');
         $shop->budget = $request->input('Presupuesto');
+        $shop->invoice_amount = $request->input('invoice_amount');
         $shop->product = json_encode($request->input('product'));
         $shop->unit = json_encode($request->input('unit'));
         $shop->quantity = json_encode($request->input('quantity'));
@@ -92,20 +93,42 @@ class MarketController extends Controller
      */
     public function show()
     {
-        $day = "3000-01-01";
+        $day = "";
         $comprasdeldia = marketshopping::where('shoppingday', $day)->get();
-        return view('marketinvoice', compact('comprasdeldia'));
+        $opciones = units::all();
+        $opciones2 = products::all();
+        //dump($opciones, $opciones2);
+        return view('modules/market/marketinvoice', compact('comprasdeldia', 'opciones', 'opciones2'));
     }
 
     public function shopday(Request $request)
     {
         //dump($request);
         $day = $request->input('day');
-        //dd($day);
-        $comprasdeldia = marketshopping::where('shoppingday', $day)->get();
-        //dd($comprasdeldia);
-        return view('marketinvoice', compact('comprasdeldia'));
+        $supplier = $request->input('proveedor');
+        //dump($day, $supplier);
+        if ($supplier != null) {
+            $comprasdeldia = marketshopping::where('id', $supplier)->get();
+        } else {
+            $comprasdeldia = marketshopping::where('shoppingday', $day)->get();
+        }
+        //dump($comprasdeldia);
+        $opciones = units::all();
+        $opciones2 = products::all();
+        return view('modules/market/marketinvoice', compact('comprasdeldia', 'opciones', 'opciones2'));
     }
+
+    public function showcreditinvoice(Request $request)
+    {
+        dump($request);
+        return view('modules/market/creditinvoice');
+    }
+
+    public function showbudget()
+    {
+        return view('modules/market/budget');
+    }
+
     /**
      * Update the specified resource in storage.
      *
