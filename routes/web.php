@@ -65,12 +65,26 @@ Route::get('/loans_list', [App\Http\Controllers\LoansController::class, 'list'])
 
 
 // Ruta para mostrar la página del mercado (método GET)
-Route::get('/market', [App\Http\Controllers\MarketController::class, 'index'])->name('market');
+Route::get('/marketlist', [App\Http\Controllers\MarketController::class, 'index'])->name('market');
 // Ruta para procesar el formulario del mercado (método POST)
-Route::post('/market', [App\Http\Controllers\MarketController::class, 'store'])->name('market.store');
+Route::post('/marketlist', [App\Http\Controllers\MarketController::class, 'store'])->name('market.store');
+
 
 Route::get('/marketinvoice', [App\Http\Controllers\MarketController::class, 'show'])->name('marketinvoice');
 Route::post('/marketinvoice', [App\Http\Controllers\MarketController::class, 'shopday'])->name('market.day');
+
+
+Route::get('/budget', [App\Http\Controllers\MarketController::class, 'showbudget'])->name('budget');
+Route::post('/creditinvoice', [App\Http\Controllers\MarketController::class, 'showcreditinvoice'])->name('creditinvoice');
+
+
+Route::get('/bankrequest', [App\Http\Controllers\BankController::class, 'indexrequest'])->name('bankindex');
+Route::post('/bankrequest', [App\Http\Controllers\BankController::class, 'storerequest'])->name('bankrequest');
+
+
+Route::get('/bankdeposit', [App\Http\Controllers\BankController::class, 'indexdeposit'])->name('bankdeposit');
+Route::post('/bankdeposit', [App\Http\Controllers\BankController::class, 'storedeposit'])->name('storedeposit');
+
 
 Route::get('/firma1', function () {
     return view('canvas/tablero3');
@@ -84,6 +98,5 @@ Route::get('/firma3', function () {
 
 // Ruta para dompdf
 Route::get('download-pdf', [App\Http\Controllers\CloseCashController::class, 'downloadPdf'])->name('download-pdf');
-
 
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware(['auth'])->name('homeredirect');
