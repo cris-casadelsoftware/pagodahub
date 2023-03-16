@@ -288,8 +288,10 @@
                                                         <button type="submit" class="btn btn-outline">
                                                             {{-- <h5 class="card-header">Compras</h5> --}}
                                                             <div class="card-body">
-                                                                <h5 class="card-title">Recepcion de productos</h5>
-                                                                <p class="card-text">---------------</p>
+                                                                <h5 class="card-title">Recepción de productos</h5>
+                                                                <p class="card-text">Descarga de los productos de mercado
+                                                                    <b>(Descarga)</b>
+                                                                </p>
                                                             </div>
                                                         </button>
                                                     </center>
@@ -310,7 +312,9 @@
                                                             {{-- <h5 class="card-header">Compras</h5> --}}
                                                             <div class="card-body">
                                                                 <h5 class="card-title">Carga de facturas</h5>
-                                                                <p class="card-text">Listas de compra para proveedores (Facturas)</p>
+                                                                <p class="card-text">Listas de compra para proveedores
+                                                                    <b>(Sustentar Facturas)</b>
+                                                                </p>
                                                             </div>
                                                         </button>
                                                     </center>
@@ -323,7 +327,7 @@
                                     @if ($acceso->Name == 'market')
                                         <div class="col">
                                             <div class="card h-100 border border-5 border-dark-subtle">
-                                                <form name="loanslist" id="loanslist" method="get"
+                                                <form name="loanslist" id="loanslist" method="post"
                                                     action="{{ route('creditinvoice') }}">
                                                     @csrf
                                                     <center>
@@ -332,7 +336,8 @@
                                                             <div class="card-body">
                                                                 <h5 class="card-title">Listado de creditos por proveedor
                                                                 </h5>
-                                                                <p class="card-text">Resumen defacturas proveedores</p>
+                                                                <p class="card-text">Resumen defacturas proveedores
+                                                                    <b>(Diferencias)</b></p>
                                                             </div>
                                                         </button>
                                                     </center>
@@ -390,7 +395,7 @@
                                         <div class="col">
                                             <div class="card h-100 border border-5 border-dark-subtle">
                                                 <form name="loanslist" id="loanslist" method="get"
-                                                    action="{{ route('bankrequest') }}">
+                                                    action="{{ route('bankindex') }}">
                                                     @csrf
                                                     <center>
                                                         <button type="submit" class="btn btn-outline">
