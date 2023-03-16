@@ -1,11 +1,41 @@
 @extends('layouts.app')
 
 @section('content')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div class="modal fade" id="mensajeModal" tabindex="-1" role="dialog" aria-labelledby="mensajeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mensajeModalLabel">Mensaje de éxito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ session('mensaje') }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sección de scripts -->
+    @if (session('mensaje'))
+        {{-- {{ session('mensaje') }} --}}
+        <script>
+            $(document).ready(function() {
+                $('#mensajeModal').modal('show');
+            });
+        </script>
+    @endif
+
     <div class="p-2 m-0 border-0 bd-example">
         <form method="get" action="{{ route('home') }}">
             <button type="submit" class="btn btn-outline-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
-                    viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-house" viewBox="0 0 16 16">
                     <path
                         d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z">
                     </path>
@@ -38,61 +68,63 @@
             </script>
             <div class="card-body">
                 <div class="card-body">
-                    <label for="inputEmail4" class="form-label"><b>Fecha</b></label>
-                    <input type="date" class="form-control" id="hoy">
-                    <br>
-                    <label class="form-label">Banco</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Seleccione BANCO</option>
-                        <option value="1">Banco General</option>
-                        <option value="2">Banistmo</option>
-                        <option value="4">Banco Nacional de Panamá</option>
-                        <option value="5">Multibank</option>
-                        <option value="3">...</option>
-                    </select>
-                    <br>
-                    <label class="form-label">Efectivo</label>
-                    <div class="input-group mb-2">
-                        <span class="input-group-text">$
-                        </span>
-                        <input type="number" class="form-control" name="" onchange="">
-                    </div>
-                    <div class="p-4 m-0 border-0">
-                        <label class="form-label">Fotos</label>
-                        <input class="form-control" type="file" id="formFile" name="" multiple
-                            onchange="mostrarImagenesPrevias()">
+                    <form name="" id="" method="post" action="{{ route('storedeposit') }}">
+                        @csrf
+                        <label for="inputEmail4" class="form-label"><b>Fecha</b></label>
+                        <input type="date" class="form-control" id="hoy" name="fecha">
                         <br>
-                        <center>
-                            <div id="imagenesPrevias"></div>
-                        </center>
+                        <label class="form-label">Banco</label>
+                        <select class="form-select" aria-label="Default select example" name="banco">
+                            <option selected>Seleccione un Banco</option>
+                            <option value="Banco General">Banco General</option>
+                            <option value="Banistmo">Banistmo</option>
+                            <option value="Banco Nacional de Panamá">Banco Nacional de Panamá</option>
+                            <option value="Multibank">Multibank</option>
+                        </select>
+                        <br>
+                        <label class="form-label">Efectivo</label>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">$
+                            </span>
+                            <input type="number" class="form-control" name="efectivo" onchange="" required>
+                        </div>
+                        <div class="p-4 m-0 border-0">
+                            <label class="form-label">Fotos</label>
+                            <input class="form-control" type="file" id="formFile" name="foto" multiple
+                                onchange="mostrarImagenesPrevias()">
+                            <br>
+                            <center>
+                                <div id="imagenesPrevias"></div>
+                            </center>
 
-                        <script>
-                            function mostrarImagenesPrevias() {
-                                var archivos = document.querySelector('#formFile').files;
-                                var imagenesPreviasDiv = document.querySelector('#imagenesPrevias');
+                            <script>
+                                function mostrarImagenesPrevias() {
+                                    var archivos = document.querySelector('#formFile').files;
+                                    var imagenesPreviasDiv = document.querySelector('#imagenesPrevias');
 
-                                for (var i = 0; i < archivos.length; i++) {
-                                    var archivo = archivos[i];
-                                    var lector = new FileReader();
+                                    for (var i = 0; i < archivos.length; i++) {
+                                        var archivo = archivos[i];
+                                        var lector = new FileReader();
 
-                                    lector.onload = (function(archivo) {
-                                        return function(e) {
-                                            var imagenPrevia = document.createElement('img');
-                                            var archivoimg = document.createElement('textarea');
-                                            imagenPrevia.src = e.target.result;
-                                            archivoimg.name = "archivosimg[]";
-                                            archivoimg.value = e.target.result;
-                                            archivoimg.style.display = "none";
-                                            imagenesPreviasDiv.appendChild(imagenPrevia);
-                                            imagenesPreviasDiv.appendChild(archivoimg);
-                                        };
-                                    })(archivo);
-                                    lector.readAsDataURL(archivo);
+                                        lector.onload = (function(archivo) {
+                                            return function(e) {
+                                                var imagenPrevia = document.createElement('img');
+                                                var archivoimg = document.createElement('textarea');
+                                                imagenPrevia.src = e.target.result;
+                                                archivoimg.name = "archivosimg[]";
+                                                archivoimg.value = e.target.result;
+                                                archivoimg.style.display = "none";
+                                                imagenesPreviasDiv.appendChild(imagenPrevia);
+                                                imagenesPreviasDiv.appendChild(archivoimg);
+                                            };
+                                        })(archivo);
+                                        lector.readAsDataURL(archivo);
+                                    }
                                 }
-                            }
-                        </script>
-                        <button class="btn btn-primary" type="button">Guardar</button>
-                    </div>
+                            </script>
+                            <button class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
