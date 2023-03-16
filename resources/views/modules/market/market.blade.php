@@ -67,13 +67,15 @@
                             <br>
 
                             <div class="container text-center">
-                                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1">
-                                    <div class="col"><label for=""
-                                            class="form-label fs-4 fw-bold font-monospace">Fecha</label>
-                                        <input class="form-control border border-dark  rounded" type="date"
-                                            name="date-day" id="" required>
+                                <center>
+                                    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1">
+                                        <div class="col"><label for=""
+                                                class="form-label fs-4 fw-bold font-monospace">Fecha</label>
+                                            <input class="form-control border border-dark w-25 rounded" type="date"
+                                                name="date-day" id="" required>
+                                        </div>
                                     </div>
-                                </div>
+                                </center>
                             </div>
 
                             <br>
@@ -98,7 +100,7 @@
                                     @endforeach
                                 </datalist>
                                 <br>
-                                <label for="formGroupExampleInput" class="form-label fs-6 fw-bold">Unidad de Medida</label>
+                                <label for="formGroupExampleInput" class="form-label fs-6 fw-bold">Unidad de medida</label>
                                 <input class="form-control unit border border-dark  rounded" list="opciones" name="unit[]"
                                     placeholder="Escribe para buscar...">
                                 <datalist id="opciones">
@@ -145,7 +147,8 @@
                                     </svg>
 
                                 </label>
-                                <input name="invoice_amount" type="number" class="form-control w-25 border border-dark  rounded">
+                                <input name="invoice_amount" type="number"
+                                    class="form-control w-25 border border-dark  rounded">
                             </div>
                         </div>
                         <br>

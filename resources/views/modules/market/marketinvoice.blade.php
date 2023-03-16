@@ -2,6 +2,35 @@
 @section('title', 'Page Title')
 
 @section('content')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div class="modal fade" id="mensajeModal" tabindex="-1" role="dialog" aria-labelledby="mensajeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mensajeModalLabel">---</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ session('mensaje') }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de scripts -->
+    @if (session('mensaje'))
+        <script>
+            $(document).ready(function() {
+                $('#mensajeModal').modal('show');
+            });
+        </script>
+    @endif
 
     <div class="p-5 m-0 border-0 bd-example">
         <div class="card">
@@ -17,10 +46,10 @@
                             d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z">
                         </path>
                     </svg>
-
                 </div>
             </div>
             <br>
+
             <center>
                 <form name="market" id="market" method="post" action="{{ route('market.day') }}">
                     <div class="form-group w-50">
@@ -36,6 +65,7 @@
                     </div>
                 </form>
             </center>
+
             <div class="p-4 m-0 border-0">
                 @if (isset($comprasdeldia))
                     @if (count($comprasdeldia) == 0)
@@ -74,6 +104,8 @@
                                                     <br>
                                                     <input style="display:none" type="text" name="day"
                                                         value="{{ $data->id }}">
+                                                    <input style="display:none" type="text" name="fecha"
+                                                        value="{{ $data->shoppingday }}">
                                                 </center>
                                             @endforeach
                                         </form>
@@ -83,16 +115,18 @@
                         </div>
                     @else
                         @foreach ($comprasdeldia as $data)
-                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1">
                                 <div class="col">
-                                    Existe una compra relacionada con la fecha de busqueda: Lista {{ $data->id }}
-                                    Fecha {{ $data->shoppingday }}
+                                    Existe una compra relacionada con la fecha de busqueda:
+                                    Fecha {{ $data->shoppingday }}, total de registros de productos para este dia
+                                    {{ count(json_decode($data->product)) - 1 }}.
                                 </div>
                             </div>
 
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="display: non">
                                 <table class="table table-bordered border-success">
-                                    <thead>
+                                    <thead style="
+                                        background-color: #244763;">
                                         <tr>
                                             <th>#</th>
                                             <th>Producto</th>
@@ -114,7 +148,8 @@
                                                             data-product-value="{{ $product }}" readonly>
                                                     </td>
                                                     <td>
-                                                        <input class="border-0 bg-transparent" type="text" name="unit[]"
+                                                        <input class="border-0 bg-transparent" type="text"
+                                                            name="unit[]"
                                                             value=" {{ json_decode($data->unit)[$index] }}"
                                                             data-unit-value="{{ json_decode($data->unit)[$index] }}"
                                                             readonly>
@@ -124,21 +159,29 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-
                                 {{-- <h5>Total de registros: {{ count(json_decode($data->product)) - 1 }}</h5> --}}
                             </div>
                             <br>
 
                             <div class="card">
                                 <h5 class="card-header">
-                                    <p id="counter"><b>Nuevas Facturas <span></span> </b></p>
+                                    <b>Nuevas Factura</b>
                                 </h5>
                                 <div class="card-body">
 
                                     <div style="display: block" id="proveedor-form-0">
                                         <form name="market" id="market" method="post"
-                                            action="{{ route('creditinvoice') }}">
+                                            action="{{ route('market.day') }}">
                                             @csrf
+                                            {{-- <div class="input-group">
+                                                <input type="text" class="form-control w-25" id="cantidad_columnas"
+                                                    value="0" readonly>
+                                                productos registrado de
+                                                <input type="text" class="form-control w-25"
+                                                    value="{{ count(json_decode($data->product)) - 1 }}" readonly>
+                                            </div> --}}
+                                            <input type="date" name="fechafactura" id=""
+                                                value="{{ $data->shoppingday }}" style="display:none">
                                             <div class="row g-3">
                                                 <div class="col">
                                                     <label class="form-label">Nombre Proveedor</label>
@@ -147,48 +190,96 @@
                                                 </div>
                                                 <div class="col">
                                                     <label class="form-label">Numero Factura</label>
-                                                    <input type="number" class="form-control" name="numerofactura"
+                                                    <input type="text" class="form-control" name="numerofactura"
                                                         placeholder="# Factura" required>
                                                 </div>
                                             </div>
 
                                             <br>
-                                            <table class="table" id="productos-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Producto</th>
-                                                        <th>Unidad</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Cantidad factura</th>
-                                                        <th>Diferencia</th>
-                                                        <th>Precio</th>
-                                                        <th>Pago metodo</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="productos-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Producto</th>
+                                                            <th>Unidad</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Cantidad factura</th>
+                                                            <th>Diferencia</th>
+                                                            <th>Precio</th>
+                                                            <th>Metodode pago</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="2">Total</th>
 
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>Total</th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th>
-                                                            <p>Total diferencia: <span id="totaldif">0.00</span></p>
-                                                        </th>
-                                                        <th>
-                                                            <p>Total precio: <span id="total">0.00</span></p>
-                                                        </th>
-                                                        <th></th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
+                                                            <th>
+                                                                <div class="form-floating">
+                                                                    <input type="number"
+                                                                        class="form-control border-0 bg-transparent"
+                                                                        id="totalcan" name="totalcan" readonly>
+                                                                    <label>Cantidad:</label>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="form-floating">
+                                                                    <input type="number"
+                                                                        class="form-control border-0 bg-transparent"
+                                                                        id="totalcanfac" name="totalcanfac" readonly>
+                                                                    <label>Cantidad Factura:</label>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="form-floating">
+                                                                    <input type="number"
+                                                                        class="form-control border-0 bg-transparent"
+                                                                        id="totaldif" name="totaldiferencia" readonly>
+                                                                    <label>Total diferencia:</label>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="form-floating">
+                                                                    <input type="number"
+                                                                        class="form-control border-0 bg-transparent"
+                                                                        id="total" name="total" readonly>
+                                                                    <label>Total precio:</label>
+                                                                </div>
+                                                            </th>
+                                                            <th colspan="2">
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="form-floating">
+                                                                            <input type="number"
+                                                                                class="form-control border-0 bg-transparent"
+                                                                                id="total_credito" name="total_credito"
+                                                                                readonly>
+                                                                            <label>Total creditos:</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <div class="form-floating">
+                                                                            <input type="number"
+                                                                                class="form-control border-0 bg-transparent"
+                                                                                id="total_efectivo" name="total_efectivo"
+                                                                                readonly>
+                                                                            <label>Total Efectivo:</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
                                             <a class="btn btn-outline-success" id="agregar-producto-btn">Agregar +
                                                 productos</a>
                                             <div class="p-4 m-0 border-0">
-                                                <input class="form-control" type="file" id="formFile" name=""
-                                                    multiple onchange="mostrarImagenesPrevias()">
+                                                <input class="form-control" accept="image/*" type="file"
+                                                    id="formFile" name="" multiple
+                                                    onchange="mostrarImagenesPrevias()" required>
                                                 <br>
                                                 <center>
                                                     <div id="imagenesPrevias"></div>
@@ -233,20 +324,21 @@
                                                     Guardar
                                                 </button>
                                             </center>
-
-
                                         </form>
                                     </div>
                                 </div>
                             </div>
                             <script>
                                 // Escuchar el evento click del botón "Agregar más productos"
+                                var counter_id = 0;
                                 document.getElementById('agregar-producto-btn').addEventListener('click', function(event) {
                                     event.preventDefault(); // Prevenir el comportamiento por defecto del botón
                                     const opcionSeleccionada = document.getElementsByName('product[]');
                                     if (opcionSeleccionada.length > document.getElementById('productos-table').rows.length - 2) {
                                         var productosTable = document.getElementById('productos-table');
                                         var row = productosTable.tBodies[0].insertRow();
+                                        counter_id++;
+                                        row.id = "fila" + counter_id;
                                         var productoCell = row.insertCell(0);
                                         var unidadCell = row.insertCell(1);
                                         var cantidadCell = row.insertCell(2);
@@ -254,6 +346,7 @@
                                         var difCell = row.insertCell(4);
                                         var precioCell = row.insertCell(5);
                                         var pago = row.insertCell(6);
+                                        var borrar = row.insertCell(7);
                                         productoCell.innerHTML =
                                             '<input type="text" class="form-control" name="producto[]" list="datalistOptions" required id="opcionSeleccionada"><datalist id="datalistOptions"> @foreach (json_decode($data->product) as $index => $product) @if ($loop->index < count(json_decode($data->product)) - 1) <option value="{{ $product }}"></option> @endif @endforeach </datalist>';
                                         unidadCell.innerHTML =
@@ -263,24 +356,66 @@
                                         canfacCell.innerHTML = '<input type="number" class="form-control" name="canfac[]" required>';
                                         difCell.innerHTML =
                                             '<input type="number" class="form-control border-0 bg-transparent" name="dif[]" readonly required>';
-                                        precioCell.innerHTML = '<input type="number" class="form-control" name="precio[]" required>';
+                                        precioCell.innerHTML =
+                                            '<input type="number" class="form-control" onchange="actualizarTotal()" name="precio[]" step="0.01" min="0" required>';
                                         pago.innerHTML =
-                                            '<select class="form-control" name="metododepago[]" required> <option value="Efectivo" > Efectivo</option><option value="Credito">Credito</option></select>';
-
+                                            '<select class="form-select" aria-label="Default select example" onchange="actualizarTotal()" name="metododepago[]" required> <option value="Efectivo" > Efectivo</option><option value="Credito">Credito</option></select>';
+                                        borrar.innerHTML = '<button type="button" onclick="eliminarFila(' + counter_id +
+                                            ');" class="btn btn-outline-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"></path></svg></button>';
                                         var productoInput = productoCell.querySelector('input');
                                         productoInput.addEventListener('input', autocompletado);
-
                                         var cantidadInput = cantidadCell.querySelector('input');
                                         cantidadInput.addEventListener('input', actualizarTotal);
                                         var canfacInput = canfacCell.querySelector('input');
                                         canfacInput.addEventListener('input', actualizarTotal);
                                         var precioInput = precioCell.querySelector('input');
                                         precioInput.addEventListener('input', actualizarTotal);
-                                    } else {
-                                        alert("no puede agregar mas productos");
-                                    }
 
+                                    } else {
+                                        alert("Se están agregando más productos con respecto a la lista de carga");
+                                        var productosTable = document.getElementById('productos-table');
+                                        var row = productosTable.tBodies[0].insertRow();
+                                        counter_id++;
+                                        row.id = "fila" + counter_id;
+                                        var productoCell = row.insertCell(0);
+                                        var unidadCell = row.insertCell(1);
+                                        var cantidadCell = row.insertCell(2);
+                                        var canfacCell = row.insertCell(3);
+                                        var difCell = row.insertCell(4);
+                                        var precioCell = row.insertCell(5);
+                                        var pago = row.insertCell(6);
+                                        var borrar = row.insertCell(7);
+                                        productoCell.innerHTML =
+                                            '<input type="text" class="form-control" name="producto[]" list="datalistOptions" required id="opcionSeleccionada">';
+                                        unidadCell.innerHTML =
+                                            '<input list="opciones" class="form-control" name="unidad[]" required>'
+                                        cantidadCell.innerHTML =
+                                            '<input type="number" class="form-control" name="cantidad[]" required >';
+                                        canfacCell.innerHTML = '<input type="number" class="form-control" name="canfac[]" required>';
+                                        difCell.innerHTML =
+                                            '<input type="number" class="form-control border-0 bg-transparent" name="dif[]" readonly required>';
+                                        precioCell.innerHTML =
+                                            '<input type="number" class="form-control" onchange="actualizarTotal()" name="precio[]" step="0.01" min="0" required>';
+                                        pago.innerHTML =
+                                            '<select class="form-select" aria-label="Default select example" onchange="actualizarTotal()" name="metododepago[]" required> <option value="Efectivo" > Efectivo</option><option value="Credito">Credito</option></select>';
+                                        borrar.innerHTML = '<button type="button" onclick="eliminarFila(' + counter_id +
+                                            ');" class="btn btn-outline-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"></path></svg></button>';
+                                        var productoInput = productoCell.querySelector('input');
+                                        productoInput.addEventListener('input', autocompletado);
+                                        var cantidadInput = cantidadCell.querySelector('input');
+                                        cantidadInput.addEventListener('input', actualizarTotal);
+                                        var canfacInput = canfacCell.querySelector('input');
+                                        canfacInput.addEventListener('input', actualizarTotal);
+                                        var precioInput = precioCell.querySelector('input');
+                                        precioInput.addEventListener('input', actualizarTotal);
+                                    }
+                                    actualizarTotal();
                                 });
+
+                                function eliminarFila(index) {
+                                    $("#fila" + index).remove();
+                                    actualizarTotal();
+                                }
 
                                 // Función para actualizar el total de la suma
                                 function actualizarTotal() {
@@ -288,21 +423,44 @@
                                     var cantidades = document.getElementsByName('cantidad[]');
                                     var canfac = document.getElementsByName('canfac[]');
                                     var difs = document.getElementsByName('dif[]');
+                                    var tipo = document.getElementsByName('metododepago[]');
 
                                     var total = 0;
+                                    var total_can = 0;
+                                    var total_canfac = 0;
+                                    var total_credito = 0;
+                                    var total_efectivo = 0;
                                     var totaldif = 0;
+                                    var total_prod = 0;
 
                                     for (var i = 0; i < precios.length; i++) {
-                                        total += parseFloat(precios[i].value) || 0;
+                                        total += (parseFloat(precios[i].value) || 0) * (parseFloat(cantidades[i].value) || 0);
                                         var cantidad = parseFloat(cantidades[i].value) || 0;
+                                        total_can = total_can + cantidad;
                                         var cantidadfac = parseFloat(canfac[i].value) || 0;
+                                        total_canfac = total_canfac + cantidadfac;
                                         var dif = cantidad - cantidadfac;
-                                        difs[i].value = dif.toFixed(2);
+                                        difs[i].value = dif.toFixed(0);
                                         totaldif += parseFloat(difs[i].value) || 0;
                                     }
+                                    for (var i = 0; i < precios.length; i++) {
+                                        if ("Credito" == tipo[i].value) {
+                                            console.log(tipo[i].value, "", precios[i].value);
+                                            total_credito += parseFloat(precios[i].value) || 0;
+                                        }
+                                        if ("Efectivo" == tipo[i].value) {
+                                            console.log(tipo[i].value, "", precios[i].value);
+                                            total_efectivo += parseFloat(precios[i].value) || 0;
+                                        }
+                                    }
                                     // Actualizar el elemento HTML que muestra el total
-                                    document.getElementById('totaldif').textContent = totaldif.toFixed(2);
-                                    document.getElementById('total').textContent = total.toFixed(2);
+                                    document.getElementById('totalcanfac').value = total_canfac.toFixed(0);
+                                    document.getElementById('totalcan').value = total_can.toFixed(0);
+                                    document.getElementById('totaldif').value = totaldif.toFixed(0);
+                                    document.getElementById('total').value = total.toFixed(2);
+                                    document.getElementById('total_credito').value = total_credito.toFixed(2);
+                                    document.getElementById('total_efectivo').value = total_efectivo.toFixed(2);
+                                    document.getElementById('cantidad_columnas').value = document.getElementById('productos-table').rows.length - 2;
                                 }
 
                                 function autocompletado() {
@@ -328,31 +486,60 @@
                                         }
 
                                     }
+                                    actualizarTotal();
                                 }
                             </script>
                             <br>
                             <div class="card" style="background-color:cadetblue; border-color:darkblue;">
-                                <img class="card-img-top" src="holder.js/100x180/" alt="">
+
                                 <div class="card-body">
                                     <h4 class="card-title">Listado de facturas generadas el dia (
                                         {{ $data->shoppingday }})</h4>
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>Fechas</th>
-                                                <th>Facturas</th>
+                                                <th>Fecha</th>
+                                                <th>Factura</th>
+                                                <th>Proveedor</th>
+                                                <th>T-Efectivo</th>
+                                                <th>T-Credito</th>
                                                 <th>Total</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td scope="row">03-03-2023</td>
-                                                <td>1PG00150</td>
-                                                <td>120.00</td>
-                                            </tr>
+                                            @if (@isset($facturasdeldia))
+                                                @foreach ($facturasdeldia as $data)
+                                                    <tr>
+                                                        <td>{{ $data->invoice_day }}</td>
+                                                        <td>{{ $data->invoice_number }}</td>
+                                                        <td>{{ $data->name_supplier }}</td>
+                                                        <td>{{ $data->total_cash }}</td>
+                                                        <td>{{ $data->total_credit }}</td>
+                                                        <td>{{ $data->total_price }}</td>
+                                                        <td>
+                                                            <div class="p-2 m-0 border-0 bd-example">
+                                                                <form name="loanslist" id="loanslist" method="post"
+                                                                    action="{{ route('creditinvoice') }}">
+                                                                    @csrf
+                                                                    <input style="display: none" type="text"
+                                                                        name="name_supplier" id="name_supplier"
+                                                                        value="{{ $data->name_supplier }}">
+                                                                    <button type="submit"
+                                                                        class="btn btn-outline-success">
+                                                                        ver
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
+
                             </div>
                         @endforeach
                     @endif
@@ -368,8 +555,6 @@
             font-family: arial, sans-serif;
             background-color: white;
             text-align: left;
-            border-collapse: collapse;
-            width: 100%;
         }
 
         th,

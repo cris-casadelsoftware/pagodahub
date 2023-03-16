@@ -21,7 +21,6 @@
                     <label for="">Concepto</label>
                     <select class="form-control" name="" id="">
                         <option>Mercado</option>
-                        <option>Factura</option>
                     </select>
                 </div><br>
                 <button type="button" class="btn btn-primary">Guardar</button>
