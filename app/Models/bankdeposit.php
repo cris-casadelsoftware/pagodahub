@@ -13,5 +13,6 @@ class bankdeposit extends Model
         'dates',
         'banks',
         'cash',
+        'file_img',
     ];
 }
