@@ -48,7 +48,7 @@
         <div class="card w-auto">
             <div class="card-header">
                 <div class="fs-2 mb-3">
-                    Depósito
+                    Depósito a Banco
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
                         class="bi bi-safe" viewBox="0 0 16 16">
                         <path
@@ -126,6 +126,16 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Listado de depositos
+            </div>
+            <div class="card-body">
+                @livewire('listbankdeposit')
             </div>
         </div>
     </div>
