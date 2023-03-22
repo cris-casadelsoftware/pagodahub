@@ -31,8 +31,8 @@ class BankController extends Controller
     {
         //dump($request);
         $bankrequest = new bankrequest;
-        $bankrequest->fromdate = $request->input('fromdate');
-        $bankrequest->todate = $request->input('todate');
+        /* $bankrequest->fromdate = $request->input('fromdate');
+        $bankrequest->todate = $request->input('todate'); */
         $bankrequest->weeknumber = $request->input('week');
         $bankrequest->cash1 = $request->input('cash1');
         $bankrequest->cash5 = $request->input('cash5');
@@ -66,6 +66,7 @@ class BankController extends Controller
         $bankdeposit->dates = $request->input('fecha');
         $bankdeposit->banks = $request->input('banco');
         $bankdeposit->cash  = $request->input('efectivo');
+        $bankdeposit->file_img = json_encode($request->input('archivosimg'));
         $bankdeposit->save();
 
         //Mensaje para confirmación de guardado.

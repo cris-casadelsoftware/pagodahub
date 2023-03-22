@@ -60,10 +60,9 @@ class APIController extends Controller
         ]);
 
         $response_token_put = json_decode($http_token_put->getBody()->getContents());
-        //dd($response_token_put);
+        /* dump("ap1",$response_token_put); */
 
         return $response_token_put;
-
     }
     /*
 $select -> used to define the columns that we want in the returned query
@@ -75,9 +74,10 @@ $expand -> to get PO records from detail tables
 $valrule -> to get PO records using a validation rule - AD_ValRule_ID or AD_ValRule_UU
 $context -> to put variables in context to be parsed by the validation rule
     */
-    public function getModel(String $model_name,String $select='', String $filter='',String $orderby='',String $top='',String $skip='',String $expand=''){
+    public function getModel(String $model_name, String $select = '', String $filter = '', String $orderby = '', String $top = '', String $skip = '', String $expand = '')
+    {
         $client = new Client(['base_uri' => 'https://erp.superlapagoda.com:444/']);
-        $http   = $client->request('GET', 'api/v1/models/'.$model_name, [
+        $http   = $client->request('GET', 'api/v1/models/' . $model_name, [
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Accept'        => 'application/json',
@@ -93,10 +93,8 @@ $context -> to put variables in context to be parsed by the validation rule
                 '$expand' => $expand,
             ]
         ]);
-
         $response = json_decode($http->getBody()->getContents());
+        /* dump("api2",$response); */
         return $response;
-        
-        
     }
 }

@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 
 class ValesPagodaRangeController extends Controller
 {
-    public function __construct()
+    private $apiController;
+    public function __construct(APIController $apiController)
     {
         $this->middleware('auth');
+        $this->apiController = $apiController;
     }
 
     /**
@@ -24,8 +26,7 @@ class ValesPagodaRangeController extends Controller
     }
     public function search(Request $request)
     {
-        $APIController = new APIController();
-        $permisos = $APIController->getModel('PAGODAHUB_closecash', 'Name,AD_User_ID', '', '', '', '', '');
+        $permisos = $this->apiController->getModel('PAGODAHUB_closecash', 'Name,AD_User_ID', '', '', '', '', '');
         foreach ($permisos->records as $record) {
             $nombreventana = $record->Name;
             $nombreusario = $record->AD_User_ID->identifier;
