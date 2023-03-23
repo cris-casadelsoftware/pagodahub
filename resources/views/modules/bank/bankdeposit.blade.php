@@ -73,14 +73,15 @@
                         <label for="inputEmail4" class="form-label"><b>Fecha</b></label>
                         <input type="date" class="form-control" id="hoy" name="fecha">
                         <br>
-                        <label class="form-label">Banco</label>
-                        <select class="form-select" aria-label="Default select example" name="banco">
-                            <option selected>Seleccione un Banco</option>
+                        <label for="validationCustom04" class="form-label">Banco</label>
+                        <select class="form-select" id="validationCustom04" name="banco" required>
+                            <option selected disabled value="">Seleccione un banco</option>
                             <option value="Banco General">Banco General</option>
                             <option value="Banistmo">Banistmo</option>
                             <option value="Banco Nacional de Panamá">Banco Nacional de Panamá</option>
                             <option value="Multibank">Multibank</option>
                         </select>
+
                         <br>
                         <label class="form-label">Efectivo</label>
                         <div class="input-group mb-2">
@@ -91,7 +92,7 @@
                         <div class="p-4 m-0 border-0">
                             <label class="form-label">Fotos</label>
                             <input class="form-control" type="file" id="formFile" name="foto" multiple
-                                onchange="mostrarImagenesPrevias()">
+                                onchange="mostrarImagenesPrevias()" required>
                             <br>
                             <center>
                                 <div id="imagenesPrevias"></div>
