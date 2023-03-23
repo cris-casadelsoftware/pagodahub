@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <div class="modal fade" id="mensajeModal" tabindex="-1" role="dialog" aria-labelledby="mensajeModalLabel"
@@ -122,6 +121,17 @@
 
                                                     </div>
                                                 </div>
+                                                <div class="col">
+                                                    <div class="col text-start">
+                                                        <label for="inputEmail4"
+                                                            class="form-label  fs-5"><b>Usario</b></label>
+                                                        <input type="text" id="usuario" name="text"
+                                                            class="form-control" value="{{ Auth::user()->name }}" disabled
+                                                            required>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -148,8 +158,9 @@
                                                     </span>
                                                     <span class="input-group-text">$
                                                     </span>
-                                                    <input type="number" class="form-control" name="cash5" onchange=""
-                                                        min="5" placeholder="Cantidad a perdir" required>
+                                                    <input type="number" class="form-control" name="cash5"
+                                                        onchange="" min="5" placeholder="Cantidad a perdir"
+                                                        required>
                                                 </div>
                                             </div>
                                         </div>
@@ -165,8 +176,8 @@
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash0-01"
-                                                        onchange="" min="0.01" step="0.01" placeholder="Cantidad a perdir"
-                                                        required>
+                                                        onchange="" min="0.01" step="0.01"
+                                                        placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -176,7 +187,8 @@
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash0-05"
-                                                        onchange="" min="0.05" step="0.05"  placeholder="Cantidad a perdir" required>
+                                                        onchange="" min="0.05" step="0.05"
+                                                        placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -186,7 +198,8 @@
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash0-10"
-                                                        onchange="" min="0.10" step="0.10" placeholder="Cantidad a perdir" required>
+                                                        onchange="" min="0.10" step="0.10"
+                                                        placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -196,7 +209,8 @@
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash0-25"
-                                                        onchange="" min="0.25" step="0.25" placeholder="Cantidad a perdir" required>
+                                                        onchange="" min="0.25" step="0.25"
+                                                        placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -206,7 +220,8 @@
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash0-50"
-                                                        onchange="" min="0.50" step="0.50" placeholder="Cantidad a perdir" required>
+                                                        onchange="" min="0.50" step="0.50"
+                                                        placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -216,7 +231,8 @@
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash1-00"
-                                                        onchange="" min="1" step="1" placeholder="Cantidad a perdir" required>
+                                                        onchange="" min="1" step="1"
+                                                        placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                         </div>
