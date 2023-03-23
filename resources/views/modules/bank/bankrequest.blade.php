@@ -118,22 +118,13 @@
                                                 <div class="col">
                                                     <div class="col text-start">
                                                         <label for="inputEmail4"
-                                                            class="form-label  fs-5"><b>Desde</b></label>
-                                                        <input type="date" id="fecha" class="form-control"
-                                                            onchange="obtenerSemana()" name="fromdate" required>
+                                                            class="form-label  fs-5"><b>Semana</b></label>
+                                                        <input type="week" id="fecha" name="week"
+                                                            class="form-control">
                                                         <p id="resultado"></p>
+
                                                     </div>
                                                 </div>
-                                                <div class="col">
-                                                    <div class="col text-start">
-                                                        <label for="inputEmail4"
-                                                            class="form-label fs-5"><b>Hasta</b></label>
-                                                        <input type="date" class="form-control" id="fecha2"
-                                                            onchange="obtenerSemana()" name="todate" required>
-                                                    </div>
-                                                </div>
-                                                <input style="display: none" type="text" class="form-control"
-                                                    id="week" name="week" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -148,16 +139,20 @@
                                                 <div class="input-group mb-2">
                                                     <span class="input-group-text">$1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     </span>
+                                                    <span class="input-group-text">$
+                                                    </span>
                                                     <input type="number" class="form-control" name="cash1" onchange=""
-                                                        value="0" min="0">
+                                                        min="0">
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="input-group mb-2">
                                                     <span class="input-group-text">$5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     </span>
-                                                    <input type="number" class="form-control" name="cash5"
-                                                        onchange="" value="0" min="0">
+                                                    <span class="input-group-text">$
+                                                    </span>
+                                                    <input type="number" class="form-control" name="cash5" onchange=""
+                                                        min="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -165,53 +160,65 @@
                                     <br>
                                     <div class="container text-center">
                                         <div class="text-start fs-5"><b> Rollos de monedas </b></div>
-                                        <div class="row row-cols-1 row-cols-sm-3 row-cols-md-6">
+                                        <div class="row row-cols-1 row-cols-sm-3 row-cols-md-3">
                                             <div class="col">
-                                                <div class="input-group mb-2">
+                                                <div class="input-group mb-4">
                                                     <span class="input-group-text">B/. 0.01 &nbsp;&nbsp;&nbsp;
                                                     </span>
+                                                    <span class="input-group-text">$
+                                                    </span>
                                                     <input type="number" class="form-control" name="cash0-01"
-                                                        onchange="" value="0" min="0">
+                                                        onchange="" min="0">
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="input-group mb-2">
                                                     <span class="input-group-text">B/. 0.05 &nbsp;&nbsp;&nbsp;
                                                     </span>
+                                                    <span class="input-group-text">$
+                                                    </span>
                                                     <input type="number" class="form-control" name="cash0-05"
-                                                        onchange="" value="0" min="0">
+                                                        onchange="" min="0">
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="input-group mb-2">
                                                     <span class="input-group-text">B/. 0.10 &nbsp;&nbsp;&nbsp;
                                                     </span>
+                                                    <span class="input-group-text">$
+                                                    </span>
                                                     <input type="number" class="form-control" name="cash0-10"
-                                                        onchange="" value="0" min="0">
+                                                        onchange="" min="0">
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="input-group mb-2">
                                                     <span class="input-group-text">B/. 0.25 &nbsp;&nbsp;&nbsp;
                                                     </span>
+                                                    <span class="input-group-text">$
+                                                    </span>
                                                     <input type="number" class="form-control" name="cash0-25"
-                                                        onchange="" value="0" min="0">
+                                                        onchange="" min="0">
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="input-group mb-2">
                                                     <span class="input-group-text">B/. 0.50 &nbsp;&nbsp;&nbsp;
                                                     </span>
+                                                    <span class="input-group-text">$
+                                                    </span>
                                                     <input type="number" class="form-control" name="cash0-50"
-                                                        onchange="" value="0" min="0">
+                                                        onchange="" min="0">
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="input-group mb-2">
                                                     <span class="input-group-text">B/. 1.00 &nbsp;&nbsp;&nbsp;
                                                     </span>
+                                                    <span class="input-group-text">$
+                                                    </span>
                                                     <input type="number" class="form-control" name="cash1-00"
-                                                        onchange="" value="0" min="0">
+                                                        onchange="" min="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -280,12 +287,19 @@
                         </form>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>
+    </div>
+    <div class="p-2 m-0 border-0 bd-example">
+        <div class="card">
+            <div class="card-header">
+                Listado de solicitudes
+            </div>
+            <div class="card-body">
+                @livewire('listbankrequest')
+            </div>
+        </div>
     </div>
     <style>
         #imagenesPrevias {

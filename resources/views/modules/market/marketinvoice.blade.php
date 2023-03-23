@@ -131,7 +131,7 @@
                                             <th>#</th>
                                             <th>Producto</th>
                                             <th>Unidad</th>
-
+                                            <th>Cantidad</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -152,6 +152,13 @@
                                                             name="unit[]"
                                                             value=" {{ json_decode($data->unit)[$index] }}"
                                                             data-unit-value="{{ json_decode($data->unit)[$index] }}"
+                                                            readonly>
+                                                    </td>
+                                                    <td>
+                                                        <input class="border-0 bg-transparent" type="text"
+                                                            name=""
+                                                            value=" {{ json_decode($data->quantity)[$index] }}"
+                                                            data-unit-value="{{ json_decode($data->quantity)[$index] }}"
                                                             readonly>
                                                     </td>
                                                 </tr>

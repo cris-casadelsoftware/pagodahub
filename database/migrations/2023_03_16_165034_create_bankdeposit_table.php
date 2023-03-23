@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('dates')->nullable();
             $table->longText('banks')->nullable();
             $table->double('cash', 8, 2)->nullable();
+            $table->longText('file_img')->nullable();
         });
     }
 

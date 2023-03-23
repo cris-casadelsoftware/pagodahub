@@ -18,7 +18,7 @@
     <div class="p-5 m-0 border-0 bd-example">
 
         {{-- Close Cash --}}
-        @foreach ($permisos2->records as $user)
+        @foreach ($permisos->records as $user)
             @foreach ($user->PAGODAHUB_closecash as $acceso)
                 @if ($acceso->Name == 'closecash')
                     <div class="card">
@@ -90,7 +90,7 @@
         @endforeach
 
         {{-- Vale --}}
-        @foreach ($permisos2->records as $user)
+        @foreach ($permisos->records as $user)
             @foreach ($user->PAGODAHUB_closecash as $acceso)
                 @if ($acceso->Name == 'vale')
                     <div class="card">
@@ -189,7 +189,7 @@
         @endforeach
 
         {{-- Loans --}}
-        @foreach ($permisos2->records as $user)
+        @foreach ($permisos->records as $user)
             @foreach ($user->PAGODAHUB_closecash as $acceso)
                 @if ($acceso->Name == 'loans')
                     <div class="card">
@@ -262,7 +262,7 @@
 
 
         {{-- Market --}}
-        @foreach ($permisos2->records as $user)
+        @foreach ($permisos->records as $user)
             @foreach ($user->PAGODAHUB_closecash as $acceso)
                 @if ($acceso->Name == 'market')
                     <div class="card">
@@ -337,7 +337,8 @@
                                                                 <h5 class="card-title">Listado de creditos por proveedor
                                                                 </h5>
                                                                 <p class="card-text">Resumen defacturas proveedores
-                                                                    <b>(Diferencias)</b></p>
+                                                                    <b>(Diferencias)</b>
+                                                                </p>
                                                             </div>
                                                         </button>
                                                     </center>
@@ -377,7 +378,7 @@
         @endforeach
 
         {{-- Bank --}}
-        @foreach ($permisos2->records as $user)
+        @foreach ($permisos->records as $user)
             @foreach ($user->PAGODAHUB_closecash as $acceso)
                 @if ($acceso->Name == 'bank')
                     <div class="card">

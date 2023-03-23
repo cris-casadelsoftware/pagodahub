@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('bankrequests', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->longText('fromdate')->nullable();
-            $table->longText('todate')->nullable();
+           /*$table->longText('fromdate')->nullable();
+            $table->longText('todate')->nullable(); */
             $table->longText('weeknumber')->nullable();
             $table->double('cash1', 8, 2)->nullable();
             $table->double('cash5', 8, 2)->nullable();
