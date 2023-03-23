@@ -1,7 +1,8 @@
+{{--
 @extends('layouts.app')
 
 @section('content')
-    @if (Route::has('login'))
+     @if (Route::has('login'))
         @auth
         @else
             <div class="container">
@@ -91,3 +92,4 @@
         @endauth
     @endif
 @endsection
+--}}
