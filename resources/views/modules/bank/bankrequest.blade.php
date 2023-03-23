@@ -69,19 +69,16 @@
         }
     </script>
 
-
     <div class="p-2 m-0 border-0 bd-example">
-        <form method="get" action="{{ route('home') }}">
-            <button type="submit" class="btn btn-outline-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-house" viewBox="0 0 16 16">
-                    <path
-                        d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z">
-                    </path>
-                </svg>
-                Menu
-            </button>
-        </form>
+        <a type="submit" class="btn btn-outline-success" href="home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
+                viewBox="0 0 16 16">
+                <path
+                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z">
+                </path>
+            </svg>
+            Menu
+        </a>
     </div>
     <div class="p-2 m-0 border-0 bd-example">
         <div class="card w-auto">
@@ -120,7 +117,7 @@
                                                         <label for="inputEmail4"
                                                             class="form-label  fs-5"><b>Semana</b></label>
                                                         <input type="week" id="fecha" name="week"
-                                                            class="form-control">
+                                                            class="form-control" required>
                                                         <p id="resultado"></p>
 
                                                     </div>
@@ -142,7 +139,7 @@
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash1" onchange=""
-                                                        min="0">
+                                                        min="1" placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -152,7 +149,7 @@
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash5" onchange=""
-                                                        min="0">
+                                                        min="5" placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,62 +160,63 @@
                                         <div class="row row-cols-1 row-cols-sm-3 row-cols-md-3">
                                             <div class="col">
                                                 <div class="input-group mb-4">
-                                                    <span class="input-group-text">B/. 0.01 &nbsp;&nbsp;&nbsp;
+                                                    <span class="input-group-text">¢. 0.01 &nbsp;&nbsp;&nbsp;
                                                     </span>
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash0-01"
-                                                        onchange="" min="0">
+                                                        onchange="" min="0.01" step="0.01" placeholder="Cantidad a perdir"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="input-group mb-2">
-                                                    <span class="input-group-text">B/. 0.05 &nbsp;&nbsp;&nbsp;
+                                                    <span class="input-group-text">¢. 0.05 &nbsp;&nbsp;&nbsp;
                                                     </span>
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash0-05"
-                                                        onchange="" min="0">
+                                                        onchange="" min="0.05" step="0.05"  placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="input-group mb-2">
-                                                    <span class="input-group-text">B/. 0.10 &nbsp;&nbsp;&nbsp;
+                                                    <span class="input-group-text">¢. 0.10 &nbsp;&nbsp;&nbsp;
                                                     </span>
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash0-10"
-                                                        onchange="" min="0">
+                                                        onchange="" min="0.10" step="0.10" placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="input-group mb-2">
-                                                    <span class="input-group-text">B/. 0.25 &nbsp;&nbsp;&nbsp;
+                                                    <span class="input-group-text">¢. 0.25 &nbsp;&nbsp;&nbsp;
                                                     </span>
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash0-25"
-                                                        onchange="" min="0">
+                                                        onchange="" min="0.25" step="0.25" placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="input-group mb-2">
-                                                    <span class="input-group-text">B/. 0.50 &nbsp;&nbsp;&nbsp;
+                                                    <span class="input-group-text">¢. 0.50 &nbsp;&nbsp;&nbsp;
                                                     </span>
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash0-50"
-                                                        onchange="" min="0">
+                                                        onchange="" min="0.50" step="0.50" placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="input-group mb-2">
-                                                    <span class="input-group-text">B/. 1.00 &nbsp;&nbsp;&nbsp;
+                                                    <span class="input-group-text">¢. 1.00 &nbsp;&nbsp;&nbsp;
                                                     </span>
                                                     <span class="input-group-text">$
                                                     </span>
                                                     <input type="number" class="form-control" name="cash1-00"
-                                                        onchange="" min="0">
+                                                        onchange="" min="1" step="1" placeholder="Cantidad a perdir" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,7 +230,7 @@
                                                 <div class="input-group mb-2">
                                                     <input class="form-control" accept="image/*" type="file"
                                                         id="formFile" name="" multiple
-                                                        onchange="mostrarImagenesPrevias()">
+                                                        onchange="mostrarImagenesPrevias()" required>
                                                     <br>
                                                     <center>
                                                         <div id="imagenesPrevias"></div>

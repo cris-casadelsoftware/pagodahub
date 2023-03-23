@@ -92,7 +92,7 @@
                         <div class="p-4 m-0 border-0">
                             <label class="form-label">Fotos</label>
                             <input class="form-control" type="file" id="formFile" name="foto" multiple
-                                onchange="mostrarImagenesPrevias()" required>
+                                onchange="mostrarImagenesPrevias()"   accept="image/*" required>
                             <br>
                             <center>
                                 <div id="imagenesPrevias"></div>
