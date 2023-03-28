@@ -76,6 +76,7 @@ Route::post('/marketinvoice', [App\Http\Controllers\MarketController::class, 'sh
 
 Route::get('/budget', [App\Http\Controllers\MarketController::class, 'showbudget'])->name('budget');
 Route::post('/creditinvoice', [App\Http\Controllers\MarketController::class, 'showcreditinvoice'])->name('creditinvoice');
+Route::post('/creditinvoices', [App\Http\Controllers\MarketController::class, 'updatecreditinvoice'])->name('updatecreditinvoice');
 
 
 Route::get('/bankrequest', [App\Http\Controllers\BankController::class, 'indexrequest'])->name('bankindex');
