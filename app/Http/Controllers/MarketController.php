@@ -8,6 +8,7 @@ use App\Models\supplierinvoice;
 use App\Models\units;
 use FontLib\Table\Type\name;
 use Illuminate\Http\Request;
+use PDF;
 
 class MarketController extends Controller
 {
@@ -166,9 +167,21 @@ class MarketController extends Controller
     public function showcreditinvoice(Request $request)
     {
         //dump($request);
-        dump($request->input('name_supplier'));
+        /* dump($request->input('name_supplier')); */
         $facturasdeldia = supplierinvoice::where('name_supplier', $request->input('name_supplier'))->orderBy('created_at', 'desc')->get();
+        session()->put('name_supplier', $request->input('name_supplier'));
         return view('modules/market/creditinvoice', compact('facturasdeldia'));
+    }
+    public function updatecreditinvoice(Request $request)
+    {
+        //dump($request);
+        //dump($request->input('checkPagar'));
+        $dia = date('d_m_Y h_i_s');
+        $name = session()->get('name_supplier');
+        $proveedor = $name;
+        $pdf = PDF::loadView('modules/market/invoice-pdf');
+        return $pdf->download("TFacturas_". $proveedor."_". $dia . ".pdf");
+
     }
 
     public function showbudget()
