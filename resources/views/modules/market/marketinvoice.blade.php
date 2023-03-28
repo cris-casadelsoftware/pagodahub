@@ -224,20 +224,20 @@
                                                             <th colspan="2">Total</th>
 
                                                             <th>
-                                                                <div class="form-floating">
+                                                                {{-- <div class="form-floating">
                                                                     <input type="number"
                                                                         class="form-control border-0 bg-transparent"
                                                                         id="totalcan" name="totalcan" readonly>
                                                                     <label>Cantidad:</label>
-                                                                </div>
+                                                                </div> --}}
                                                             </th>
                                                             <th>
-                                                                <div class="form-floating">
+                                                                {{-- <div class="form-floating">
                                                                     <input type="number"
                                                                         class="form-control border-0 bg-transparent"
                                                                         id="totalcanfac" name="totalcanfac" readonly>
                                                                     <label>Cantidad Factura:</label>
-                                                                </div>
+                                                                </div> --}}
                                                             </th>
                                                             <th>
                                                                 <div class="form-floating">
@@ -395,10 +395,11 @@
                                         productoCell.innerHTML =
                                             '<input type="text" class="form-control" name="producto[]" list="datalistOptions" required id="opcionSeleccionada">';
                                         unidadCell.innerHTML =
-                                            '<input list="opciones" class="form-control" name="unidad[]" required>'
+                                            '<input list="opciones" class="form-control border-0 bg-transparent" name="unidad[]" readonly required>'
                                         cantidadCell.innerHTML =
-                                            '<input type="number" class="form-control" name="cantidad[]" required >';
-                                        canfacCell.innerHTML = '<input type="number" class="form-control" name="canfac[]" required>';
+                                            '<input type="number" class="form-control border-0 bg-transparent" name="cantidad[]"  readonly required >';
+                                        canfacCell.innerHTML =
+                                            '<input type="number" class="form-control" name="canfac[]" required>';
                                         difCell.innerHTML =
                                             '<input type="number" class="form-control border-0 bg-transparent" name="dif[]" readonly required>';
                                         precioCell.innerHTML =
@@ -441,7 +442,7 @@
                                     var total_prod = 0;
 
                                     for (var i = 0; i < precios.length; i++) {
-                                        total += (parseFloat(precios[i].value) || 0) * (parseFloat(cantidades[i].value) || 0);
+                                        total += (parseFloat(precios[i].value) || 0) * (parseFloat(canfac[i].value) || 0);
                                         var cantidad = parseFloat(cantidades[i].value) || 0;
                                         total_can = total_can + cantidad;
                                         var cantidadfac = parseFloat(canfac[i].value) || 0;
@@ -453,17 +454,17 @@
                                     for (var i = 0; i < precios.length; i++) {
                                         if ("Credito" == tipo[i].value) {
                                             console.log(tipo[i].value, "", precios[i].value);
-                                            total_credito += parseFloat(precios[i].value) || 0;
+                                            total_credito += (parseFloat(precios[i].value) || 0) * (parseFloat(canfac[i].value) || 0);;
                                         }
                                         if ("Efectivo" == tipo[i].value) {
                                             console.log(tipo[i].value, "", precios[i].value);
-                                            total_efectivo += parseFloat(precios[i].value) || 0;
+                                            total_efectivo += (parseFloat(precios[i].value) || 0) * (parseFloat(canfac[i].value) || 0);;
                                         }
                                     }
                                     // Actualizar el elemento HTML que muestra el total
-                                    document.getElementById('totalcanfac').value = total_canfac.toFixed(0);
+                                    /* document.getElementById('totalcanfac').value = total_canfac.toFixed(0);
                                     document.getElementById('totalcan').value = total_can.toFixed(0);
-                                    document.getElementById('totaldif').value = totaldif.toFixed(0);
+                                    document.getElementById('totaldif').value = totaldif.toFixed(0); */
                                     document.getElementById('total').value = total.toFixed(2);
                                     document.getElementById('total_credito').value = total_credito.toFixed(2);
                                     document.getElementById('total_efectivo').value = total_efectivo.toFixed(2);
